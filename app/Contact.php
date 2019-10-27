@@ -2,21 +2,17 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Contact extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'id', 'user_id', 'first_name', 'last_name', 'phone'
     ];
 
     /**
@@ -32,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password'
+        //
     ];
 
     /**
@@ -45,11 +41,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the Contacts for the User.
+     * Get the User for the Contact.
      */
-    public function contacts()
+    public function user()
     {
-        return $this->hasMany(\App\Contact::class);
+        return $this->belongsTo(\App\User::class);
     }
 
 }
